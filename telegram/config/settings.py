@@ -4,9 +4,7 @@ import os
 try:
     from .local_settings import *
 except ImportError:
-    pass
-    # print("Local settings not found, loading prod settings...")
-    # from .prod_settings import *
+    from .prod_settings import *
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
