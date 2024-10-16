@@ -1,0 +1,25 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    {% block head %}
+
+    {% endblock %}
+    <title>{{ title }}</title>
+</head>
+<body>
+<input type="hidden" name="csrfmiddlewaretoken" value="{{ csrf_token }}">
+<table class="table_dark">
+    <tr>
+        <td><a href="{% url 'Telega_main:home' %}">Главная</a></td>
+        <td><a href="{% url 'admin:index' %}" target="blank">Админка</a></td>
+        <td><a href="{% url 'Telega_main:parserwb' %}" target="blank">Парсер WB</a></td>
+        <td><a href="{% url 'Telega_main:parsertg' %}" target="blank">Парсер TG</a></td>
+    </tr>
+</table>
+
+{% block content %}
+{% endblock %}
+</body>
+</html>
