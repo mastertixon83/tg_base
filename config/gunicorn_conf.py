@@ -1,6 +1,6 @@
-command = '/mnt/96375fe5-6a39-4e72-b221-433152ae3028/u4eba/Python/bots/telega/telega_main/venv/bin/gunicorn'
-pythonpath = '/mnt/96375fe5-6a39-4e72-b221-433152ae3028/u4eba/Python/bots/telega/telega_main/telegram'
-bind = '0.0.0.0:8000'
+command = '/home/tixon/telegram/tg_base/venv/bin/gunicorn'
+pythonpath = '/home/tixon/telegram/tg_base/telegram'
+bind = '127.0.0.1:8000'
 
 #количество воркеров 2*кол-во ядер процессора + 1
 workers = 3
