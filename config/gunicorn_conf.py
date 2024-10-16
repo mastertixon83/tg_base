@@ -1,5 +1,5 @@
-# command = '/home/tixon/telegram/tg_base/venv/bin/gunicorn'
-# pythonpath = '/home/tixon/telegram/tg_base/telegram'
+command = '/home/tixon/telegram/tg_base/venv/bin/gunicorn'
+pythonpath = '/home/tixon/telegram/tg_base/telegram'
 bind = '127.0.0.1:8000'
 
 #количество воркеров 2*кол-во ядер процессора + 1
