@@ -42,7 +42,13 @@
         <!-- <td><a href="{% url 'Telega_main:parsertg' %}" target="blank">Парсер TG</a></td> -->
     </tr>
 </table>
-
+<div class="container">
+    {% if user.is_authenticated %}
+        <p>Добро пожаловать, {{ user.username }}!</p>
+    {% else %}
+        <p>Вы не авторизованы.</p>
+    {% endif %}
+</div>
 <div class="container py-4">
     {% block content %}
     {% endblock %}

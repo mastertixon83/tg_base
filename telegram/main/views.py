@@ -5,7 +5,7 @@ from utils.parser_wb.parser import run_parser_wb, run_parser_tg
 def home_view(request):
     """Вывод главной стрницы"""
     # Возвращаем объекты страницы вместе с пагинатором в контексте
-    return render(request, 'main/index.html', {"page_obj": "Hellow World"})
+    return render(request, 'main/index.html', {'title': 'Главная', 'user': request.user})
 
 
 def run_parser_wb_view(request):
