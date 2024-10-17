@@ -2,6 +2,7 @@
 {% load static %}
 {% block content %}
 
-<h1>{% static 'main/img/logo.jpg' %}</h1>
+    <h1>Путь к изображению: {% static 'main/img/logo.jpg' %}</h1>
+    <img src="{% static 'main/img/logo.jpg' %}" alt="Пример изображения">
 
 {% endblock %}
