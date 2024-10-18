@@ -133,8 +133,8 @@ class BotToken(models.Model):
         return self.name
 
     class Meta:
-        verbose_name = "Токен бота"
-        verbose_name_plural = "Токены ботов"
+        verbose_name = "Бот постер"
+        verbose_name_plural = "Боты постеры"
 
 
 def media_upload_to(instance, filename):
