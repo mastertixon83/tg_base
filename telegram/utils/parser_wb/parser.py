@@ -188,9 +188,9 @@ def run_parser_wb():
 def run_parser_tg():
     """Запуск пасера tg контента"""
     logger.debug("TG Parser is run")
-    for i in range(1, 10):
-        with open(f"/mnt/638AED35134656EE/Desktop_linux/Telegram/content/history2/messages{str(i)}.html") as file:
-            src = file.read()
+    # for i in range(1, 10):
+    with open(f"/mnt/638AED35134656EE/Desktop_linux/Telegram/content/psih/messages.html") as file:
+        src = file.read()
 
         soup = BS(src, "lxml")
 
@@ -204,8 +204,8 @@ def run_parser_tg():
                 )
                 image_tag = item.find('a', class_='photo_wrap')
                 if image_tag:
-                    logger.debug(f"/mnt/638AED35134656EE/Desktop_linux/Telegram/content/history2/{image_tag.get('href')}")
-                    filename = f"/mnt/638AED35134656EE/Desktop_linux/Telegram/content/history2/{image_tag.get('href')}"
+                    logger.debug(f"/mnt/638AED35134656EE/Desktop_linux/Telegram/content/psih/{image_tag.get('href')}")
+                    filename = f"/mnt/638AED35134656EE/Desktop_linux/Telegram/content/psih/{image_tag.get('href')}"
                     with open(filename, 'rb') as f:
                         django_file = File(f)
                         media = Media(post=post)  # Создаем объект медиа

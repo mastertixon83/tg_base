@@ -116,7 +116,7 @@ class PostAdmin(admin.ModelAdmin):
 
     list_display = ["pk", "post_data", "post_time", "status", "ads_status", "post_type", "text", "comment", "channel", "message_id"]
     list_display_links = ["pk", "post_data", "post_time", "text"]
-    list_filter = ["channel__title", "post_time", "status", "product_category"]
+    list_filter = ["channel__title", "post_time", "post_data", "status", "product_category", "post_type"]
     list_editable = ["status", "post_type"]
     ordering = ["created_at"]
     inlines = [MediaInline, ButtonInline]
