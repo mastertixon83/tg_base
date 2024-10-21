@@ -1,0 +1,28 @@
+{% extends "base.html" %}
+{% load static %}
+
+<div class="container">
+    {% block content %}
+    <div class="container my-5">
+        <div class="text-center mb-4">
+            <h1 class="display-4">Добро пожаловать на наш сайт!</h1>
+            <p class="lead">Здесь промпт для канала для GPT</p>
+        </div>
+
+        <div class="card mb-4 shadow-sm">
+            <div class="card-body">
+                <h5 class="card-title">Канал {{ channel.title }}</h5>
+                <p class="card-text">
+                    {{ channel.gpt_prompt }}
+                </p>
+            </div>
+        </div>
+
+        <footer class="text-center mt-5">
+            <p class="text-muted">© 2024 TixonMaster | Все права защищены</p>
+        </footer>
+    </div>
+
+    <!--    <img src="{% static 'main/img/logo.jpg' %}" alt="Пример изображения">-->
+
+    {% endblock %}

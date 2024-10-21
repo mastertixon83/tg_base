@@ -7,6 +7,5 @@ app_name = 'Telega_main'
 
 urlpatterns = [
     path('', home_view, name='home'), # Главная страница
-    path("parserwb", run_parser_wb_view, name="parserwb"),
-    path("parsertg", run_parser_tg_view, name="parsertg")
+    path('channel/<int:pk>/', get_channel_prompt, name='get_channel_prompt'),
 ]
