@@ -4,6 +4,12 @@
 <head>
     <meta charset="UTF-8">
     {% block head %}
+        <link
+        href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css"
+        rel="stylesheet"
+        integrity="sha384-oenE1fX2JThqM8LTGJ9FODlQGsdPlooyk1xBLaMieMx16We2rDDPks/wTAP7t4gH"
+        crossorigin="anonymous"
+    />
     {% endblock %}
     <title>{{ title }}</title>
 
@@ -51,7 +57,11 @@
     {% block content %}
     {% endblock %}
 </div>
-
+    <script
+        src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-0ZvAtu5I8sKH7QA8vl3kBrAo7BYvElzgR+TwjFDml7S0lDZhyWxuyrnlGfLgffHJ"
+        crossorigin="anonymous"
+    ></script>
 
 </body>
 </html>
