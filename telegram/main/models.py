@@ -1,5 +1,7 @@
 import os
 import requests
+import re
+import transliterate
 
 from django.db import models
 from django.utils import timezone
@@ -150,7 +152,7 @@ class Media(models.Model):
     post = models.ForeignKey('Post', on_delete=models.CASCADE, related_name='media_files')
     created_at = models.DateTimeField(verbose_name="Дата создания", auto_now_add=True, null=True, blank=True)
     file_url = models.URLField(verbose_name="URL файла", blank=True, null=True)  # Добавляем поле для URL
-    spoiler = models.BooleanField(verbose_name="Спойлер", default=False)
+    spoiler = models.BooleanField(verbose_name="Спойлер", default=False) #Спрятать фото
 
     def __str__(self):
         return self.file.name
@@ -162,10 +164,6 @@ class Media(models.Model):
                 f'<a href="{self.file.url}" target="_blank"><img src="{self.file.url}" style="width: 100px; height: auto;" /></a>')
         return ""
 
-    class Meta:
-        verbose_name = "Медиафайл"
-        verbose_name_plural = "Медиафайлы"
-
     def delete(self, *args, **kwargs):
         """Удаление файла при удалении записи из таблицы"""
         if self.file and os.path.isfile(self.file.path):
@@ -173,46 +171,61 @@ class Media(models.Model):
         super().delete(*args, **kwargs)
 
     def save(self, *args, **kwargs):
-        """Переопределяем сохранение для загрузки файла по URL"""
+        """Переопределяем сохранение для загрузки файла по URL и конвертации формата"""
         if self.file_url and not self.file:
+            # Загружаем файл по URL, если это нужно
             self.save_file_from_url(self.file_url)
             self.file_url = None  # Очищаем URL после загрузки
-        super().save(*args, **kwargs)
+
+        if self.file:
+            self.file.name = self.transliterate_filename(self.file.name)
+
+        # Проверяем и конвертируем в .jpg, если файл webp
+        if self.file and self.file.name.lower().endswith('.webp'):
+            self.convert_webp_to_jpg()
+
+        super().save(*args, **kwargs)  # Сохраняем в базе данных
 
     def save_file_from_url(self, url):
-        """Загрузка файла по URL и сохранение его в поле file"""
         response = requests.get(url)
         if response.status_code == 200:
             file_name = os.path.basename(url)
             file_ext = os.path.splitext(file_name)[1].lower()
+            temp_file = NamedTemporaryFile(suffix=file_ext or '.bin', delete=True)
+            temp_file.write(response.content)
+            temp_file.flush()
+            self.file.save(self.transliterate_filename(file_name), File(temp_file), save=False)
+        else:
+            raise Exception("Не удалось загрузить файл с указанного URL")
 
-            if file_ext == '.webp':  # Если файл webp, конвертируем его в jpg
-                img = Image.open(BytesIO(response.content))
-                img = img.convert("RGB")  # Преобразуем в RGB, т.к. jpg не поддерживает альфа-канал
+    def transliterate_filename(self, filename):
+        """Транслитерирует имя файла, если оно содержит кириллицу."""
+        name, ext = os.path.splitext(filename)
+        if re.search('[а-яА-Я]', name):  # Проверка на кириллицу
+            name = transliterate.slugify(name)  # Транслитерирует кириллицу в латиницу
+        return f"{name}{ext}"
 
-                # Генерируем новое имя файла с расширением jpg
-                file_name = os.path.splitext(file_name)[0] + '.jpg'
+    def convert_webp_to_jpg(self):
+        """Конвертация webp в jpg, если файл в формате webp"""
+        if self.file and self.file.name.lower().endswith('.webp'):
+            # Открываем изображение и конвертируем его в jpg
+            with self.file.open('rb') as f:
+                img = Image.open(f)
+                img = img.convert("RGB")
 
-                # Создаем временный файл
+                # Создаем временный файл с jpg-расширением
+                file_name = os.path.splitext(self.file.name)[0] + '.jpg'
                 temp_file = NamedTemporaryFile(suffix='.jpg', delete=True)
                 img.save(temp_file, format='JPEG')
                 temp_file.flush()
 
-                # Сохраняем конвертированный файл в поле file
+                # Сохраняем конвертированный файл в поле file с новым именем
                 self.file.save(file_name, File(temp_file), save=False)
-            else:
-                # Для других форматов сохраняем без изменений
-                # Если у файла нет расширения, добавляем исходное расширение
-                if not file_ext:
-                    file_name += '.bin'  # Подумайте о назначении расширения по умолчанию
+                self.file.close()  # Закрываем файл
 
-                temp_file = NamedTemporaryFile(delete=True)
-                temp_file.write(response.content)
-                temp_file.flush()
-                self.file.save(file_name, File(temp_file), save=False)
-        else:
-            raise Exception("Не удалось загрузить файл с указанного URL")
-
+    class Meta:
+        verbose_name = "Медиафайл"
+        verbose_name_plural = "Медиафайлы"
 
 @receiver(post_delete, sender=Media)
 def delete_media_file(sender, instance, **kwargs):
