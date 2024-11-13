@@ -227,6 +227,7 @@ class Media(models.Model):
         verbose_name = "Медиафайл"
         verbose_name_plural = "Медиафайлы"
 
+
 @receiver(post_delete, sender=Media)
 def delete_media_file(sender, instance, **kwargs):
     """Удаление медиафайла при удалении объекта"""
