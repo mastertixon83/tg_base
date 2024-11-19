@@ -11,7 +11,9 @@
     <div class="card mb-4 shadow-sm">
         <div class="card-body">
             <h5 class="card-title">Самый первый и самы важный шаг - Выбрать тематику канала</h5>
-            <p>Вот таблица с примерной подборкой - <a href='https://docs.google.com/spreadsheets/d/1MUpANNE0F9feRez9LuktFdEHlnq54OJcETxJXDJ_YKE/edit?gid=0#gid=0' target="blank">Клац</a></p>
+            <p>Вот таблица с примерной подборкой - <a
+                    href='https://docs.google.com/spreadsheets/d/1MUpANNE0F9feRez9LuktFdEHlnq54OJcETxJXDJ_YKE/edit?gid=0#gid=0'
+                    target="blank">Клац</a></p>
         </div>
     </div>
 
@@ -48,6 +50,7 @@
                 document.execCommand('copy'); // Копируем текст
                 document.body.removeChild(tempTextarea); // Удаляем временный элемент
             });
+
 
 
             </script>
@@ -142,6 +145,7 @@
         document.execCommand('copy'); // Копируем текст
         document.body.removeChild(tempTextarea); // Удаляем временный элемент
     });
+
 
 
     </script>
@@ -245,6 +249,7 @@
         });
 
 
+
     </script>
 
     <div class="card mb-4 shadow-sm">
@@ -259,43 +264,46 @@
     </div>
 
     <div class="card mb-4 shadow-sm">
-    <div class="card-body">
-        <h5 class="card-title">Чтобы заголовок поста выделить жирным его нужно обернуть в тег</h5>
-        <div class="form-group row">
-            <input type="text" id="post-title" class="form-control mb-3" placeholder="Введи заголовок">
+        <div class="card-body">
+            <h5 class="card-title">Чтобы заголовок поста выделить жирным его нужно обернуть в тег</h5>
+            <div class="form-group row">
+                <input type="text" id="post-title" class="form-control mb-3" placeholder="Введи заголовок">
+
+                <div class="mt-4">
+                    <strong>Сформированный заголовок:</strong>
+                    <p id="generated-title">&lt;b&gt;{Заголовок}&lt;/b&gt;</p>
+                    <button class="copy-button btn btn-primary" data-copy-target="generated-title">Скопировать в буфер
+                    </button>
+                </div>
+            </div>
+            <br>
+            <h5 class="card-title">Сгенерируй ссылку, чтобы вствить ее в пост</h5>
+
+            <div class="form-group row">
+                <label for="channel-link" class="col-sm-3 col-form-label"><strong>Ссылка на канал:</strong></label>
+                <div class="col-sm-9">
+                    <input type="text" id="channel-link" class="form-control mb-3" placeholder="Введи ссылку на канал">
+                </div>
+            </div>
+
+            <div class="form-group row">
+                <label for="channel-link-text" class="col-sm-3 col-form-label"><strong>Текст ссылки:</strong></label>
+                <div class="col-sm-9">
+                    <input type="text" id="channel-link-text" class="form-control mb-3"
+                           placeholder="Введи текст ссылки">
+                </div>
+            </div>
 
             <div class="mt-4">
-                <strong>Сформированный заголовок:</strong>
-                <p id="generated-title">&lt;b&gt;{Заголовок}&lt;/b&gt;</p>
-                <button class="copy-button btn btn-primary" data-copy-target="generated-title">Скопировать в буфер</button>
+                <strong>Сформированная ссылка:</strong>
+                <p id="generated-link">&lt;a href=''&gt;&lt;/a&gt;</p>
+                <button class="copy-button btn btn-primary" data-copy-target="generated-link">Скопировать в буфер
+                </button>
             </div>
-        </div>
-        <br>
-        <h5 class="card-title">Сгенерируй ссылку, чтобы вствить ее в пост</h5>
-
-        <div class="form-group row">
-            <label for="channel-link" class="col-sm-3 col-form-label"><strong>Ссылка на канал:</strong></label>
-            <div class="col-sm-9">
-                <input type="text" id="channel-link" class="form-control mb-3" placeholder="Введи ссылку на канал">
-            </div>
-        </div>
-
-        <div class="form-group row">
-            <label for="channel-link-text" class="col-sm-3 col-form-label"><strong>Текст ссылки:</strong></label>
-            <div class="col-sm-9">
-                <input type="text" id="channel-link-text" class="form-control mb-3" placeholder="Введи текст ссылки">
-            </div>
-        </div>
-
-        <div class="mt-4">
-            <strong>Сформированная ссылка:</strong>
-            <p id="generated-link">&lt;a href=''&gt;&lt;/a&gt;</p>
-            <button class="copy-button btn btn-primary" data-copy-target="generated-link">Скопировать в буфер</button>
         </div>
     </div>
-</div>
 
-<script>
+    <script>
     // Функция для обновления заголовка и ссылки
     function updateLink() {
         const channelLink = document.getElementById('channel-link').value.trim();
@@ -336,7 +344,8 @@
             copyToClipboard(targetId);
         });
     });
-</script>
+
+    </script>
 
 
     <div class="card mb-4 shadow-sm" id="step-5">
@@ -409,11 +418,15 @@
                     креатив для телеграм канала?</a>
                 </li>
                 <li>
-                    <a href='https://docs.google.com/spreadsheets/d/1tsIw88p64euZ2qY1Xkb2Qe9htbZXV5sx/edit?gid=2020245505#gid=2020245505'>Пример таблицы закупа</a>
-                    <p style="color: red;">(Перейди по ссылке и сохрани ее к себе - Файл - Сохранить как таблицу Google)</p>
+                    <a href='https://docs.google.com/spreadsheets/d/1tsIw88p64euZ2qY1Xkb2Qe9htbZXV5sx/edit?gid=2020245505#gid=2020245505'
+                       target="_blank">Пример таблицы закупа</a>
+                    <p style="color: red;">(Перейди по ссылке и сохрани ее к себе - Файл - Сохранить как таблицу
+                        Google)</p>
                 </li>
                 <li>
-                    <p>Сервис аналитики Telegram каналов <a href='https://tgstat.ru/channels/search'>TGSTAT</a> (<a href='https://www.youtube.com/watch?v=EhFhOJAi2HI&pp=ygUm0LrQsNC6INC_0L7Qu9GM0LfQvtCy0LDRgtGM0YHRjyB0Z3N0YXQ%3D'>Мануал как пользоваться</a>)</p>
+                    <p>Сервис аналитики Telegram каналов <a href='https://tgstat.ru/channels/search' target="_blank">TGSTAT</a>
+                        (<a href='https://www.youtube.com/watch?v=EhFhOJAi2HI&pp=ygUm0LrQsNC6INC_0L7Qu9GM0LfQvtCy0LDRgtGM0YHRjyB0Z3N0YXQ%3D'
+                            target="_blank">Мануал как пользоваться</a>)</p>
                 </li>
             </ul>
 
@@ -433,6 +446,7 @@
         document.execCommand('copy'); // Копируем текст
         document.body.removeChild(tempTextarea); // Удаляем временный элемент
     });
+
 
     </script>
 
