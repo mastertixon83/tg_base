@@ -96,7 +96,7 @@
                 </div>
             </div>
 
-            <p id="content-plan-text">
+            <p id="content-plan-text"><strong>ТЗ для ChatGPT (копирайтера для Telegram канала):</strong><br>
                 Ты контент-менеджер, составь общий контент-план для Telegram-канала.<br><br>
                 Название канала: <span id="channel-title1">{Название канала}</span><br>
                 Описание канала: <span id="channel-description1">{Описание канала}</span><br>
@@ -133,6 +133,8 @@
 
         document.querySelector('#step-5 #channel-title3').textContent = channelTitleText;
         document.querySelector('#step-5 #channel-description3').textContent = channelDescriptionText;
+        document.querySelector('#copy-step5 #ca-descritpion-text').textContent = ca;
+
     }
 
     // Добавление обработчиков событий для полей ввода
@@ -241,22 +243,21 @@
         document.getElementById('content-plan').addEventListener('input', updateContentPlanText);
 
             // Добавляем обработчик события для кнопки "Скопировать в буфер"
-    document.getElementById('copy-button3').addEventListener('click', function () {
-        // Получаем содержимое блока, который нужно скопировать
-        const textToCopy = document.getElementById('copy-content').innerText;
+        document.getElementById('copy-button3').addEventListener('click', function () {
+            // Получаем содержимое блока, который нужно скопировать
+            const textToCopy = document.getElementById('copy-content').innerText;
 
-        // Создаем временный textarea для копирования текста
-        const tempTextarea = document.createElement('textarea');
-        tempTextarea.value = textToCopy; // Устанавливаем текст
-        document.body.appendChild(tempTextarea); // Добавляем в документ
-        tempTextarea.select(); // Выделяем текст
-        document.execCommand('copy'); // Копируем текст
-        document.body.removeChild(tempTextarea); // Удаляем временный элемент
-});
+            // Создаем временный textarea для копирования текста
+            const tempTextarea = document.createElement('textarea');
+            tempTextarea.value = textToCopy; // Устанавливаем текст
+            document.body.appendChild(tempTextarea); // Добавляем в документ
+            tempTextarea.select(); // Выделяем текст
+            document.execCommand('copy'); // Копируем текст
+            document.body.removeChild(tempTextarea); // Удаляем временный элемент
+        });
 
 
     </script>
-
 
     <div class="card mb-4 shadow-sm">
         <div class="card-body">
@@ -270,19 +271,85 @@
     </div>
 
     <div class="card mb-4 shadow-sm">
-        <div class="card-body">
-            <h5 class="card-title">Для заголовка используй тег <code>&lt;b&gt;Заголовок&lt;/b&gt;</code></h5>
-            <h5 class="card-title">Чтобы вставить ссылку в пост нужно использовать тег</h5>
-            <p> &lt;a href='https://t.me/+ZWkzaBSYkgkxZWNi'&gt;ИСТОРИЧЕСКИЙ БЛОКНОТ&lt;/a&gt; </p>
-        </div>
-    </div>
+    <div class="card-body">
+        <h5 class="card-title">Чтобы заголовок поста выделить жирным его нужно обернуть в тег</h5>
+        <div class="form-group row">
+            <input type="text" id="post-title" class="form-control mb-3" placeholder="Введите заголовок">
 
-    <div class="card mb-4 shadow-sm">
-        <div class="card-body">
-            <h5 class="card-title">Пост публикуется при помощи библиотеки aiogram, parse_mode=HTML напиши ссылку с
-                тегом</h5>
+            <div class="mt-4">
+                <strong>Сформированный заголовок:</strong>
+                <p id="generated-title">&lt;b&gt;{Заголовок}&lt;/b&gt;</p>
+                <button class="copy-button btn btn-primary" data-copy-target="generated-title">Скопировать в буфер</button>
+            </div>
+        </div>
+        <br>
+        <h5 class="card-title">Сгенерируй ссылку, чтобы вствить ее в пост</h5>
+
+        <div class="form-group row">
+            <label for="channel-link" class="col-sm-3 col-form-label"><strong>Ссылка на канал:</strong></label>
+            <div class="col-sm-9">
+                <input type="text" id="channel-link" class="form-control mb-3" placeholder="Введите ссылку на канал">
+            </div>
+        </div>
+
+        <div class="form-group row">
+            <label for="channel-link-text" class="col-sm-3 col-form-label"><strong>Текст ссылки:</strong></label>
+            <div class="col-sm-9">
+                <input type="text" id="channel-link-text" class="form-control mb-3" placeholder="Введите текст ссылки">
+            </div>
+        </div>
+
+        <div class="mt-4">
+            <strong>Сформированная ссылка:</strong>
+            <p id="generated-link">&lt;a href=''&gt;&lt;/a&gt;</p>
+            <button class="copy-button btn btn-primary" data-copy-target="generated-link">Скопировать в буфер</button>
         </div>
     </div>
+</div>
+
+<script>
+    // Функция для обновления заголовка и ссылки
+    function updateLink() {
+        const channelLink = document.getElementById('channel-link').value.trim();
+        const channelLinkText = document.getElementById('channel-link-text').value.trim();
+        const postTitle = document.getElementById('post-title').value.trim();
+
+        // Формируем HTML-код ссылки и заголовка
+        const linkHTML = `&lt;a href='${channelLink}'&gt;${channelLinkText}&lt;/a&gt;`;
+        const titleHTML = `&lt;b&gt;${postTitle}&lt;/b&gt;`;
+
+        // Обновляем содержимое
+        document.getElementById('generated-link').innerHTML = linkHTML;
+        document.getElementById('generated-title').innerHTML = titleHTML;
+    }
+
+    // Обновляем содержимое при вводе текста
+    document.getElementById('channel-link').addEventListener('input', updateLink);
+    document.getElementById('channel-link-text').addEventListener('input', updateLink);
+    document.getElementById('post-title').addEventListener('input', updateLink);
+
+    // Универсальная функция для копирования текста
+    function copyToClipboard(elementId) {
+        const textToCopy = document.getElementById(elementId).innerText;
+
+        // Создаем временный textarea для копирования текста
+        const tempTextarea = document.createElement('textarea');
+        tempTextarea.value = textToCopy;
+        document.body.appendChild(tempTextarea);
+        tempTextarea.select();
+        document.execCommand('copy');
+        document.body.removeChild(tempTextarea);
+    }
+
+    // Добавляем обработчики для кнопок копирования
+    document.querySelectorAll('.copy-button').forEach(button => {
+        button.addEventListener('click', function () {
+            const targetId = this.getAttribute('data-copy-target');
+            copyToClipboard(targetId);
+        });
+    });
+</script>
+
 
     <div class="card mb-4 shadow-sm" id="step-5">
         <div class="card-body">
@@ -301,8 +368,7 @@
                 <p><strong>Описание канала:</strong><br>
                     <span id="channel-description3">{Описание канала}</span></p>
 
-                <!-- Здесь будет вставляться текст контент плана -->
-                <p id="ca-descritpion-output" style="display: none;">
+                <p id="ca-descritpion-output">
                     <strong>Целевая аудитория:</strong><br>
                     <span id="ca-descritpion-text"></span>
                 </p>
@@ -356,32 +422,12 @@
                 <li><a href="https://www.youtube.com/watch?v=BbX2XB-R3xk" target="_blank">Как создать рекламный пост
                     креатив для телеграм канала?</a></li>
             </ul>
-            <button id="copy-button4" class="btn btn-primary">Скопировать в буфер</button>
+            <button id="copy-button5" class="btn btn-primary">Скопировать в буфер</button>
         </div>
     </div>
     <script>
-    // Функция для обновления текста контент-плана
-    function updateContentPlanText() {
-        // Получаем текст из textarea
-        const CAText = document.getElementById('ca-description').value;
-
-        // Находим блок, куда будем вставлять текст
-        const CADesriptionOutput = document.getElementById('ca-descritpion-text');
-
-        // Если текст не пустой, вставляем его в блок и показываем его
-        if (CAText.trim() !== "") {
-            CADesriptionOutput.textContent = CAText; // Вставляем текст
-            document.getElementById('ca-descritpion-output').style.display = 'block'; // Показываем блок
-        } else {
-            document.getElementById('ca-descritpion-output').style.display = 'none'; // Скрываем блок, если текст пуст
-        }
-    }
-
-    // Добавляем обработчик события для обновления текста при изменении в textarea
-    document.getElementById('ca-description').addEventListener('input', updateContentPlanText);
-
     // Добавляем обработчик события для кнопки "Скопировать в буфер"
-    document.getElementById('copy-button4').addEventListener('click', function () {
+    document.getElementById('copy-button5').addEventListener('click', function () {
         // Получаем содержимое блока с id "copy-step5", который нужно скопировать
         const textToCopy = document.getElementById('copy-step5').innerText;
 
