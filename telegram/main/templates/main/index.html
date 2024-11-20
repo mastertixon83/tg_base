@@ -247,9 +247,6 @@
             document.execCommand('copy'); // Копируем текст
             document.body.removeChild(tempTextarea); // Удаляем временный элемент
         });
-
-
-
     </script>
 
     <div class="card mb-4 shadow-sm">
@@ -300,6 +297,21 @@
                 <button class="copy-button btn btn-primary" data-copy-target="generated-link">Скопировать в буфер
                 </button>
             </div>
+
+            <h5 class="card-title">Фразу скрыть под спойлер</h5>
+            <div class="form-group row">
+                <label for="text-for-spoiler" class="col-sm-3 col-form-label"><strong>Фраза:</strong></label>
+                <div class="col-sm-9">
+                    <textarea id="text-for-spoiler" class="form-control mb-3" rows="3"
+                      placeholder="Введи контент план"></textarea>
+                </div>
+            </div>
+            <div class="mt-4">
+                <strong>Сформированная фраза:</strong>
+                <p id="spoilered-text">{Фраза под спойлером}</p>
+                <button class="copy-button btn btn-primary" data-copy-target="spoilered-text">Скопировать в буфер
+                </button>
+            </div>
         </div>
     </div>
 
@@ -309,20 +321,24 @@
         const channelLink = document.getElementById('channel-link').value.trim();
         const channelLinkText = document.getElementById('channel-link-text').value.trim();
         const postTitle = document.getElementById('post-title').value.trim();
+        const spoilerText = document.getElementById('text-for-spoiler').value.trim()
 
         // Формируем HTML-код ссылки и заголовка
         const linkHTML = `&lt;a href='${channelLink}'&gt;${channelLinkText}&lt;/a&gt;`;
         const titleHTML = `&lt;b&gt;${postTitle}&lt;/b&gt;`;
+        const spoileredHTML = '&lt;spoiler&gt;${postTitle}&lt;/spoiler&gt;'
 
         // Обновляем содержимое
         document.getElementById('generated-link').innerHTML = linkHTML;
         document.getElementById('generated-title').innerHTML = titleHTML;
+        document.getElementById('spoilered-text').innerHTML = spoileredHTML;
     }
 
     // Обновляем содержимое при вводе текста
     document.getElementById('channel-link').addEventListener('input', updateLink);
     document.getElementById('channel-link-text').addEventListener('input', updateLink);
     document.getElementById('post-title').addEventListener('input', updateLink);
+    document.getElementById('text-for-spoiler').addEventListener('input', updateLink);
 
     // Универсальная функция для копирования текста
     function copyToClipboard(elementId) {
