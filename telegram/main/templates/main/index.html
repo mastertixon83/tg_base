@@ -50,9 +50,6 @@
                 document.execCommand('copy'); // Копируем текст
                 document.body.removeChild(tempTextarea); // Удаляем временный элемент
             });
-
-
-
             </script>
         </div>
     </div>
@@ -145,9 +142,6 @@
         document.execCommand('copy'); // Копируем текст
         document.body.removeChild(tempTextarea); // Удаляем временный элемент
     });
-
-
-
     </script>
 
     <div class="card mb-4 shadow-sm" id="step-3">
@@ -297,13 +291,13 @@
                 <button class="copy-button btn btn-primary" data-copy-target="generated-link">Скопировать в буфер
                 </button>
             </div>
-
+            <br>
             <h5 class="card-title">Фразу скрыть под спойлер</h5>
             <div class="form-group row">
-                <label for="text-for-spoiler" class="col-sm-3 col-form-label"><strong>Фраза:</strong></label>
+                <strong>Фраза:</strong>
                 <div class="col-sm-9">
                     <textarea id="text-for-spoiler" class="form-control mb-3" rows="3"
-                      placeholder="Введи контент план"></textarea>
+                      placeholder="Введи фразу"></textarea>
                 </div>
             </div>
             <div class="mt-4">
@@ -326,7 +320,7 @@
         // Формируем HTML-код ссылки и заголовка
         const linkHTML = `&lt;a href='${channelLink}'&gt;${channelLinkText}&lt;/a&gt;`;
         const titleHTML = `&lt;b&gt;${postTitle}&lt;/b&gt;`;
-        const spoileredHTML = '&lt;spoiler&gt;${postTitle}&lt;/spoiler&gt;'
+        const spoileredHTML = `&lt;spoiler&gt;${spoilerText}&lt;/spoiler&gt;`;
 
         // Обновляем содержимое
         document.getElementById('generated-link').innerHTML = linkHTML;
