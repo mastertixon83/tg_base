@@ -91,7 +91,7 @@ CKEDITOR_CONFIGS = {
         'width': 650,  # Ширина редактора
         'height': 300,  # Высота редактора
         'toolbar': [
-            ['Spoiler', '-', 'Bold', 'Italic', 'Underline', 'Link', "Unlink"],
+            ['Spoiler', 'Blockquote', '-', 'Bold', 'Italic', 'Underline', 'Link', "Unlink"],
             ['Undo', 'Redo'],
             ['Source'],
         ],
