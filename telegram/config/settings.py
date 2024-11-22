@@ -88,8 +88,8 @@ DATA_UPLOAD_MAX_NUMBER_FIELDS = 10000
 
 CKEDITOR_CONFIGS = {
     'default': {
-        'width': '800px',
-        'height': '500px',
+        'width': "100%",  # Ширина редактора
+        'height': 300,  # Высота редактора
         'toolbar': [
             ['Spoiler', '-', 'Bold', 'Italic', 'Underline', 'Link', "Unlink"],
             ['Undo', 'Redo'],
