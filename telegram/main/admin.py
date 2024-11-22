@@ -5,6 +5,8 @@ from django import forms
 
 from .models import *
 
+from ckeditor.widgets import CKEditorWidget
+
 try:
     admin.site.unregister(Channel)
 except admin.sites.NotRegistered:
@@ -36,6 +38,7 @@ class MediaInline(admin.TabularInline):
 
 
 class PostAdminForm(forms.ModelForm):
+    content = forms.CharField(widget=CKEditorWidget())
     class Meta:
         model = Post
         fields = '__all__'
