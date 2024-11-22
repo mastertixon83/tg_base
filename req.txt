@@ -1,9 +1,12 @@
 asgiref==3.8.1
 beautifulsoup4==4.12.3
+bleach==6.2.0
 bs4==0.0.2
 certifi==2024.8.30
 charset-normalizer==3.3.2
 Django==5.1.1
+django-ckeditor==6.7.1
+django-js-asset==2.2.0
 gunicorn==23.0.0
 idna==3.10
 loguru==0.7.2
@@ -12,7 +15,10 @@ packaging==24.1
 pillow==10.4.0
 psycopg2-binary==2.9.9
 requests==2.32.3
+six==1.16.0
 soupsieve==2.6
 sqlparse==0.5.1
+transliterate==1.10.2
 typing_extensions==4.12.2
 urllib3==2.2.3
+webencodings==0.5.1
