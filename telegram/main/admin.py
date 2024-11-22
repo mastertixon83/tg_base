@@ -88,7 +88,7 @@ class ChannelAdmin(admin.ModelAdmin):
     save_as = True
     save_as_continue = True
     search_fields = ["title"]
-    inlines = [PostInline]
+    # inlines = [PostInline]
 
     list_display = ["pk", "title", "url", "category", "admin", "created_at"]
     list_display_links = ["pk", "title", "url"]
