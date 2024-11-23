@@ -95,10 +95,12 @@ CKEDITOR_CONFIGS = {
             ['Undo', 'Redo'],
             ['Source'],
         ],
-        'extraPlugins': 'spoiler',  # Подключаем плагин
+        'extraPlugins': 'spoiler, blockquote',  # Подключаем плагин
         'autoParagraph': False,  # Отключаем автоматическое оборачивание текста в <p>
         'allowedContent': True,  # Разрешаем любые данные
         'fillEmptyBlocks': False,
         'extraAllowedContent': 'spoiler',  # Явно разрешаем тег <spoiler>
+        'enterMode': 2,  # Отключаем стандартное поведение Enter
+        'shiftEnterMode': 3,  # Отключаем Shift+Enter
     }
 }
