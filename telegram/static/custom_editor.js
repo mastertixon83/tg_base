@@ -32,7 +32,7 @@ document.addEventListener('DOMContentLoaded', function () {
     }
 
     // Добавляем кнопки с иконками и подсказками
-    createButton('Жирный', '<strong>', '</strong>', 'fa-bold', 'Жирный текст');
+    createButton('Жирный', '<b>', '</b>', 'fa-bold', 'Жирный текст');
     createButton('Курсив', '<i>', '</i>', 'fa-italic', 'Курсивный текст');
     createButton('Подчёркнутый', '<u>', '</u>', 'fa-underline', 'Подчеркнутый текст');
     createButton('Спойлер', '<spoiler>', '</spoiler>', 'fa-eye-slash', 'Спойлер');
