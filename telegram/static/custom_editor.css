@@ -1,0 +1,38 @@
+/* custom_editor.css */
+@import url('https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css');
+
+/* Панель с кнопками */
+.custom-toolbar {
+    width: 100%; /* Растягиваем на всю ширину */
+    display: flex; /* Используем flexbox для выравнивания */
+    justify-content: center; /* Центрируем кнопки */
+    margin-bottom: 10px; /* Отступ снизу */
+}
+
+/* Кнопки */
+.custom-toolbar button {
+    padding: 10px 15px; /* Увеличиваем высоту кнопок */
+    margin: 5px; /* Отступ между кнопками */
+    font-size: 14px;
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.custom-toolbar button:hover {
+    background-color: #0056b3;
+}
+
+/* textarea */
+#editor {
+    width: 55%; /* Ширина на всю доступную ширину */
+    height: 200px; /* Фиксированная высота */
+    margin-top: 10px; /* Отступ сверху */
+    padding: 10px; /* Внутренний отступ */
+    border: 1px solid #ccc; /* Граница */
+    resize: vertical; /* Можно изменять только высоту */
+    font-family: Arial, sans-serif;
+    font-size: 14px;
+}

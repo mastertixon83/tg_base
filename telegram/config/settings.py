@@ -20,8 +20,6 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
 
     "main.apps.MainConfig",
-
-    "ckeditor"
 ]
 
 MIDDLEWARE = [
@@ -86,21 +84,3 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 DATA_UPLOAD_MAX_NUMBER_FIELDS = 10000
 
-CKEDITOR_CONFIGS = {
-    'default': {
-        'width': 650,  # Ширина редактора
-        'height': 300,  # Высота редактора
-        'toolbar': [
-            ['Spoiler', 'Blockquote', '-', 'Bold', 'Italic', 'Underline', 'Link', "Unlink"],
-            ['Undo', 'Redo'],
-            ['Source'],
-        ],
-        'extraPlugins': 'spoiler, blockquote',  # Подключаем плагин
-        'autoParagraph': False,  # Отключаем автоматическое оборачивание текста в <p>
-        'allowedContent': True,  # Разрешаем любые данные
-        'fillEmptyBlocks': False,
-        'extraAllowedContent': 'spoiler',  # Явно разрешаем тег <spoiler>
-        'enterMode': 2,  # Отключаем стандартное поведение Enter
-        'shiftEnterMode': 3,  # Отключаем Shift+Enter
-    }
-}

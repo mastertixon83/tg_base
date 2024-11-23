@@ -1,6 +1,0 @@
-spoiler {
-    background-color: rgba(0, 0, 0, 0.5); /* Черный фон с прозрачностью 50% */
-    color: white; /* Белый текст на черном фоне */
-    font-weight: bold; /* Жирный текст */
-    padding: 0 2px; /* Отступы для текста */
-}

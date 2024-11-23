@@ -12,8 +12,6 @@ from django.dispatch import receiver
 from django.core.files import File
 from django.core.files.temp import NamedTemporaryFile
 
-from ckeditor.fields import RichTextField
-
 from PIL import Image
 from io import BytesIO
 
@@ -88,8 +86,7 @@ class Post(models.Model):
 
     created_at = models.DateTimeField(verbose_name="Дата создания поста", auto_now_add=True)
     updated_at = models.DateTimeField(verbose_name="Дата изменения", auto_now=True)
-    text = RichTextField(verbose_name="Текст поста")
-    # text = models.TextField(verbose_name="Текст поста")
+    text = models.TextField(verbose_name="Текст поста")
     comment = models.TextField(verbose_name="Комментарий", blank=True, null=True, default=None)
     article = models.CharField(verbose_name="Артикул", default=None, blank=True, null=True)
     channel = models.ForeignKey(

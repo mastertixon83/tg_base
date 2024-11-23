@@ -4,8 +4,8 @@ from django.urls import reverse
 from django import forms
 
 from .models import *
+from .forms import CustomEditorForm  # Импортируем форму
 
-from ckeditor.widgets import CKEditorWidget
 
 try:
     admin.site.unregister(Channel)
@@ -37,20 +37,9 @@ class MediaInline(admin.TabularInline):
     preview.short_description = 'Превью'
 
 
-class PostAdminForm(forms.ModelForm):
-    content = forms.CharField(widget=CKEditorWidget())
-    class Meta:
-        model = Post
-        fields = '__all__'
-        widgets = {
-            'text': forms.Textarea(attrs={'style': 'width: 400px; height: 200px'}),
-        }
-
-
 class PostInline(admin.TabularInline):
     """Инлайн-класс для отображения постов в таблице на странице канала"""
     model = Post
-    form = PostAdminForm
     extra = 1  # Количество пустых постов для добавления
     fields = ["post_data", "post_time", "status", "post_type", "text", "edit_link"]
     readonly_fields = ["created_at", "updated_at", "edit_link"]
@@ -123,6 +112,8 @@ class PostAdmin(admin.ModelAdmin):
     list_editable = ["status", "post_type"]
     ordering = ["created_at"]
     inlines = [MediaInline, ButtonInline]
+
+    form = CustomEditorForm
 
 
 @admin.register(Media)
