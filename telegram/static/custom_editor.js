@@ -64,6 +64,37 @@ document.addEventListener('DOMContentLoaded', function () {
         console.error('Родительский элемент с классом form-row не найден!');
     }
 
+    // Создаем контейнер для счётчика символов
+    const charCounter = document.createElement('div');
+    charCounter.classList.add('char-counter');
+    charCounter.style.textAlign = 'left';
+    charCounter.style.marginTop = '5px';
+    charCounter.style.fontSize = '14px';
+
+    // Добавляем счётчик под textarea
+    if (container) {
+        container.appendChild(charCounter);
+    }
+
+    // Функция для обновления счётчика символов
+    function updateCharCounter() {
+        const charCount = editor.value.length;
+        charCounter.textContent = `Количество символов: ${charCount} - Максимум 1024`;
+
+        // Изменяем цвет текста счётчика
+        if (charCount > 1024) {
+            charCounter.style.color = 'red'; // Красный, если символов больше 1024
+        } else {
+            charCounter.style.color = '#fff'; // Белый, если символов 1024 или меньше
+        }
+    }
+
+    // Обновляем счётчик при вводе текста вручную
+    editor.addEventListener('input', updateCharCounter);
+
+    // Устанавливаем начальное значение счётчика
+    updateCharCounter();
+
     // Функция для оборачивания/удаления текста в теги
     function wrapText(textarea, openTag, closeTag) {
         const start = textarea.selectionStart;
@@ -92,6 +123,9 @@ document.addEventListener('DOMContentLoaded', function () {
         textarea.focus();
         textarea.selectionStart = start + (selectedText.startsWith(openTag) ? 0 : openTag.length);
         textarea.selectionEnd = end + (selectedText.startsWith(openTag) ? 0 : openTag.length);
+
+        // Пересчёт символов
+        updateCharCounter();
     }
 
     // Функция для создания или удаления ссылки
@@ -127,5 +161,8 @@ document.addEventListener('DOMContentLoaded', function () {
         textarea.focus();
         textarea.selectionStart = start + (selectedText.startsWith('<a href=') ? 0 : 9 + url.length);
         textarea.selectionEnd = textarea.selectionStart + selectedText.length; // Выделяем текст внутри ссылки
+
+        // Пересчёт символов
+        updateCharCounter();
     }
 });

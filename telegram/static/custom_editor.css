@@ -3,21 +3,21 @@
 
 /* Панель с кнопками */
 .custom-toolbar {
-    width: 100%; /* Растягиваем на всю ширину */
+    width: 600px; /* Растягиваем на всю ширину */
     display: flex; /* Используем flexbox для выравнивания */
     justify-content: center; /* Центрируем кнопки */
-    margin-bottom: 10px; /* Отступ снизу */
+    margin-bottom: 2px; /* Отступ снизу */
 }
 
 /* Кнопки */
 .custom-toolbar button {
-    padding: 10px 15px; /* Увеличиваем высоту кнопок */
+    padding: 7px 12px; /* Увеличиваем высоту кнопок */
     margin: 5px; /* Отступ между кнопками */
-    font-size: 14px;
+    font-size: 12px;
     background-color: #007bff;
     color: #fff;
     border: none;
-    border-radius: 5px;
+    border-radius: 10px;
     cursor: pointer;
 }
 
@@ -27,9 +27,9 @@
 
 /* textarea */
 #editor {
-    width: 55%; /* Ширина на всю доступную ширину */
+    width: 600px; /* Ширина на всю доступную ширину */
     height: 200px; /* Фиксированная высота */
-    margin-top: 10px; /* Отступ сверху */
+    margin-top: 2px; /* Отступ сверху */
     padding: 10px; /* Внутренний отступ */
     border: 1px solid #ccc; /* Граница */
     resize: vertical; /* Можно изменять только высоту */
