@@ -15,6 +15,7 @@ class CustomEditorForm(forms.ModelForm):
             "status",
             "date_time_publication",
             "post_type",
+            "options",
             "message_id",
             "ads_status",
             "product_category"

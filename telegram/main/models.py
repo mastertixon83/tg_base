@@ -105,7 +105,12 @@ class Post(models.Model):
     date_time_publication = models.DateTimeField(verbose_name="Дата и время публикации", null=True, blank=True, default=None)
     post_type = models.CharField(verbose_name="Тип поста", max_length=1, choices=POST_TYPES, blank=False,
                                     null=False, default=POST)
-    options = models.TextField(verbose_name="Варианты ответов", blank=True, null=True, default="")
+    options = models.TextField(
+        verbose_name="Варианты ответов",
+        help_text="Введи варианты ответов с большой буквы и через запятую. Пример: Да, Нет, Воздержусь",
+        blank=True,
+        null=True,
+        default="")
     message_id = models.TextField(verbose_name="ID сообщения", blank=True, null=True, default=None)
     ads_status = models.BooleanField(verbose_name="Статус рекламного поста", default=True)
     product_category = models.CharField(verbose_name="Категория товара", blank=True, null=True, default=None)
