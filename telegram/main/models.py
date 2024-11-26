@@ -49,7 +49,7 @@ class Channel(models.Model):
     category = models.ForeignKey(Category, on_delete=models.CASCADE, related_name='channels')
     admin = models.ForeignKey(Admin, on_delete=models.CASCADE, related_name="channel_admin")
     created_at = models.DateField(verbose_name="Дата создания канала")
-    gpt_prompt = models.TextField(verbose_name="Промпт для GPT", blank=True, null=True, default=None)
+    gpt_prompt = models.TextField(verbose_name="Контент план", blank=True, null=True, default=None)
 
     def __str__(self):
         return self.title
