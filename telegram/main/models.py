@@ -78,16 +78,23 @@ class Post(models.Model):
     ADS = "A"
     CREO = "C"
     POST = "P"
+    QUIZ = "Q"
+    MULTIPLE = "M"
 
     POST_TYPES = [
         (ADS, "Реклама"),
         (CREO, "Креатив"),
-        (POST, "Пост")
+        (POST, "Пост"),
+        (QUIZ, "Викторина"),
+        (MULTIPLE, "Несколько ответов")
     ]
 
     created_at = models.DateTimeField(verbose_name="Дата создания поста", auto_now_add=True)
     updated_at = models.DateTimeField(verbose_name="Дата изменения", auto_now=True)
+    post_type = models.CharField(verbose_name="Тип поста", max_length=1, choices=POST_TYPES, blank=False,
+                                 null=False, default=POST)
     text = models.TextField(verbose_name="Текст поста")
+    answers = models.TextField(verbose_name="Варианты ответов", null=True, blank=True, default="")
     comment = models.TextField(verbose_name="Комментарий", blank=True, null=True, default=None)
     article = models.CharField(verbose_name="Артикул", default=None, blank=True, null=True)
     channel = models.ForeignKey(
@@ -101,8 +108,6 @@ class Post(models.Model):
     post_time = models.TimeField(verbose_name="Время публикации", null=True, blank=True, default=None)
     status = models.BooleanField(verbose_name="Опубликован", default=False)
     date_time_publication = models.DateTimeField(verbose_name="Дата и время публикации", null=True, blank=True, default=None)
-    post_type = models.CharField(verbose_name="Тип поста", max_length=1, choices=POST_TYPES, blank=False,
-                                    null=False, default=POST)
     message_id = models.TextField(verbose_name="ID сообщения", blank=True, null=True, default=None)
     ads_status = models.BooleanField(verbose_name="Статус рекламного поста", default=True)
     product_category = models.CharField(verbose_name="Категория товара", blank=True, null=True, default=None)

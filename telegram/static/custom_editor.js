@@ -1,5 +1,26 @@
-document.addEventListener('DOMContentLoaded', function () {
+document.addEventListener("DOMContentLoaded", function () {
+    // *** Ответственное за поле post_type и управление полем answers ***
+    const postTypeField = document.querySelector("#id_post_type"); // Поле выбора post_type
+    const answersFieldContainer = document.querySelector(".form-row.field-answers"); // Контейнер для поля answers
+
+    // Функция для управления видимостью поля answers
+    function toggleAnswersField() {
+        if (postTypeField.value === "Q" || postTypeField.value === "M") {
+            answersFieldContainer.style.display = ""; // Показываем поле
+        } else {
+            answersFieldContainer.style.display = "none"; // Скрываем поле
+        }
+    }
+
+    // Выполняем проверку при загрузке страницы
+    toggleAnswersField();
+
+    // Выполняем проверку при изменении значения post_type
+    postTypeField.addEventListener("change", toggleAnswersField);
+
+    // *** Ответственное за кастомный редактор текста ***
     const editor = document.getElementById('editor'); // Получаем textarea по ID
+
     if (!editor) {
         console.error('Textarea с указанным ID не найдено!');
         return;
@@ -66,6 +87,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
     // Создаем контейнер для счётчика символов
     const charCounter = document.createElement('div');
+    charCounter.id = 'char-counter'; // Уникальный ID для счётчика
     charCounter.classList.add('char-counter');
     charCounter.style.textAlign = 'left';
     charCounter.style.marginTop = '5px';
@@ -79,14 +101,14 @@ document.addEventListener('DOMContentLoaded', function () {
     // Функция для обновления счётчика символов
     function updateCharCounter() {
         const charCount = editor.value.length;
-        charCounter.textContent = `Количество символов: ${charCount} - Максимум 1024`;
+        let maxCount = 1024;
+        if (postTypeField.value === "Q" || postTypeField.value === "M") {
+            maxCount = 300;
+        }
+        charCounter.textContent = `Количество символов: ${charCount} - Максимум ${maxCount}`;
 
         // Изменяем цвет текста счётчика
-        if (charCount > 1024) {
-            charCounter.style.color = 'red'; // Красный, если символов больше 1024
-        } else {
-            charCounter.style.color = '#fff'; // Белый, если символов 1024 или меньше
-        }
+        charCounter.style.color = charCount > maxCount ? 'red' : '#fff';
     }
 
     // Обновляем счётчик при вводе текста вручную
@@ -109,7 +131,7 @@ document.addEventListener('DOMContentLoaded', function () {
         const wrappedText = openTag + selectedText + closeTag;
 
         // Регулярные выражения для проверки, обернут ли текст в теги
-        const tagRegex = new RegExp(`^${openTag}(.*)${closeTag}$`);
+        const tagRegex = new RegExp('^${openTag}(.*)${closeTag}$');
 
         if (tagRegex.test(selectedText)) {
             // Если текст уже обернут в тег, удаляем его
@@ -121,8 +143,8 @@ document.addEventListener('DOMContentLoaded', function () {
 
         // Восстанавливаем фокус и выделение
         textarea.focus();
-        textarea.selectionStart = start + (selectedText.startsWith(openTag) ? 0 : openTag.length);
-        textarea.selectionEnd = end + (selectedText.startsWith(openTag) ? 0 : openTag.length);
+        textarea.selectionStart = start + openTag.length;
+        textarea.selectionEnd = end + openTag.length;
 
         // Пересчёт символов
         updateCharCounter();
@@ -150,7 +172,7 @@ document.addEventListener('DOMContentLoaded', function () {
             // Если текст не обернут в ссылку, добавляем тег <a>
             const url = prompt('Введите URL для ссылки:');
             if (url) {
-                const linkTag = `<a href="${url}">${selectedText}</a>`;
+                const linkTag = '<a href="${url}">${selectedText}</a>';
                 textarea.value = textarea.value.substring(0, start) + linkTag + textarea.value.substring(end);
             } else {
                 alert('URL не был введен.');
@@ -159,10 +181,6 @@ document.addEventListener('DOMContentLoaded', function () {
 
         // Восстанавливаем фокус и выделение
         textarea.focus();
-        textarea.selectionStart = start + (selectedText.startsWith('<a href=') ? 0 : 9 + url.length);
-        textarea.selectionEnd = textarea.selectionStart + selectedText.length; // Выделяем текст внутри ссылки
-
-        // Пересчёт символов
         updateCharCounter();
     }
 });

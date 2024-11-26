@@ -1,12 +1,14 @@
 from django import forms
-from .models import Post  # Замените на вашу модель
+from .models import Post
 
 
 class CustomEditorForm(forms.ModelForm):
     class Meta:
-        model = Post  # Ваша модель
+        model = Post
         fields = [
+            "post_type",
             'text',
+            "answers",
             "comment",
             "article",
             "channel",
@@ -14,7 +16,6 @@ class CustomEditorForm(forms.ModelForm):
             "post_time",
             "status",
             "date_time_publication",
-            "post_type",
             "message_id",
             "ads_status",
             "product_category"
@@ -24,7 +25,7 @@ class CustomEditorForm(forms.ModelForm):
         }
 
     class Media:
-        js = ('custom_editor.js',)  # Подключаем кастомный JS
+        js = ('custom_editor.js', 'answers.js')  # Подключаем кастомный JS
         css = {
             'all': ('custom_editor.css',),  # Подключаем кастомный CSS
         }
