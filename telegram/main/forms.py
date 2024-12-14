@@ -9,6 +9,7 @@ class CustomEditorForm(forms.ModelForm):
             "post_type",
             'text',
             "answers",
+            "correct_answer",
             "comment",
             "article",
             "channel",

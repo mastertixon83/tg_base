@@ -95,6 +95,7 @@ class Post(models.Model):
                                  null=False, default=POST)
     text = models.TextField(verbose_name="Текст поста")
     answers = models.TextField(verbose_name="Варианты ответов", null=True, blank=True, default="")
+    correct_answer = models.CharField(verbose_name="Правильный Ответ", null=True, blank=True, default="")
     comment = models.TextField(verbose_name="Комментарий", blank=True, null=True, default=None)
     article = models.CharField(verbose_name="Артикул", default=None, blank=True, null=True)
     channel = models.ForeignKey(

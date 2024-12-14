@@ -2,13 +2,16 @@ document.addEventListener("DOMContentLoaded", function () {
     // *** Ответственное за поле post_type и управление полем answers ***
     const postTypeField = document.querySelector("#id_post_type"); // Поле выбора post_type
     const answersFieldContainer = document.querySelector(".form-row.field-answers"); // Контейнер для поля answers
+    const correct_answerFieldContainer = document.querySelector(".form-row.field-correct_answer"); // Контейнер для поля answers
 
     // Функция для управления видимостью поля answers
     function toggleAnswersField() {
         if (postTypeField.value === "Q" || postTypeField.value === "M") {
             answersFieldContainer.style.display = ""; // Показываем поле
+            correct_answerFieldContainer.style.display = ""; // Показываем поле
         } else {
             answersFieldContainer.style.display = "none"; // Скрываем поле
+            correct_answerFieldContainer.style.display = "none"; // Скрываем поле
         }
     }
 
