@@ -2,6 +2,9 @@ import os
 import requests
 import re
 import transliterate
+from datetime import datetime
+import locale
+from loguru import logger
 
 from django.db import models
 from django.utils import timezone
@@ -14,6 +17,8 @@ from django.core.files.temp import NamedTemporaryFile
 
 from PIL import Image
 from io import BytesIO
+
+from .telegram_bot import *
 
 
 class Admin(models.Model):
@@ -119,6 +124,18 @@ class Post(models.Model):
 
     def __str__(self):
         return f"{self.id} - {self.text[:200]}"
+
+    def save(self, *args, **kwargs):
+        """Переопределяем save для отправки сообщения в Telegram"""
+        super().save(*args, **kwargs)  # Сначала сохраняем запись
+        if self.post_type == "A":
+            # Устанавливаем русскую локаль (для корректного отображения названий дней недели)
+            locale.setlocale(locale.LC_TIME, "ru_RU.utf8")
+            formatted_date = self.post_data.strftime("%A, %-d %B %Y").lower()
+
+            text = f"Пост запланирован в канал <a href='https://t.me/+p5xN8rclJE83MDgy'>{self.channel}</a> и будет опубликован <b>{'во' if 'вторник' in formatted_date else 'в'} {formatted_date}, {self.post_time}</b>"
+
+            send_message_sync(text=text)
 
     class Meta:
         verbose_name = "Пост"
