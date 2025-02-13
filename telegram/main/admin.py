@@ -87,7 +87,7 @@ class ChannelAdmin(admin.ModelAdmin):
 
 @admin.register(Button)
 class ButtonAdmin(admin.ModelAdmin):
-    """Класс регистрации модели внопок"""
+    """Класс регистрации модели кнопок"""
     save_on_top = True
     save_as = True
     save_as_continue = True
@@ -126,7 +126,7 @@ class MediaAdmin(admin.ModelAdmin):
 
     list_display = ["pk", "file", "spoiler", "preview"]
     list_display_links = ["pk", "file"]
-    list_filter = ["post__text"]
+    list_filter = ["post__channel"]
     ordering = ["created_at"]
 
 
